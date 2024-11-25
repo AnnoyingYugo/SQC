@@ -15,6 +15,11 @@ public class SQC {
     public static class ScenarioDescription {
         public String content;
         public Integer depth;
+
+        public ScenarioDescription(Integer depth, String content) {
+            this.depth = depth;
+            this.content = content;
+        }
     }
 
     private ScenarioBody scenario;
@@ -23,18 +28,29 @@ public class SQC {
         this.scenario = scenario;
     }
 
-    public SQC(String title, String[] actors, String[] system, String[] scenarios) {
+    public SQC(String title, String[] actors, String[] system, ScenarioDescription[] scenarios) {
         this.scenario = new ScenarioBody();
         this.scenario.title = title;
         this.scenario.actors = actors;
         this.scenario.system = system;
-        this.scenario.scenarios = new ScenarioDescription[scenarios.length];
-        for (int i = 0; i < scenarios.length; i++) {
-            this.scenario.scenarios[i] = new ScenarioDescription();
-            this.scenario.scenarios[i].content = scenarios[i];
-            this.scenario.scenarios[i].depth = 0;
-        }
+        this.scenario.scenarios = scenarios;
     }
+
+    public static ScenarioDescription[] readScenarioDescriptions(String scenarios) {
+        if (scenarios == null) {
+            return new ScenarioDescription[0];
+        }
+        String[] scenarioSteps = scenarios.split(",");
+
+        ScenarioDescription[] scenarioDescriptions = new ScenarioDescription[scenarioSteps.length];
+        for (int i = 0; i < scenarioDescriptions.length; i++) {
+            String[] splitScenario = scenarioSteps[i].split(":");
+            Integer depth = Integer.valueOf(splitScenario[0]);
+            String content = splitScenario[1];
+            scenarioDescriptions[i] = new ScenarioDescription(depth, content);
+        }
+        return scenarioDescriptions;
+    }    
 
     public String toPrint() {
         String str = "Scenario: " + scenario.title + "\n" + "Actors: " + String.join(", ", scenario.actors) + "\n"
