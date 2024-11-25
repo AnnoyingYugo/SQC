@@ -1,0 +1,20 @@
+{
+    "title": "Dodanie książki",
+    "actors": ["Bibliotekarz"],
+    "system": ["System"],
+    "scenarios": [
+      { "depth": 0, "content": "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej" },
+      { "depth": 0, "content": "Wyświetla się formularz."},
+      { "depth": 0, "content": "Bibliotekarz podaje dane książki."},
+      { "depth": 0, "content": "IF: Bibliotekarz pragnie dodać egzemplarze książki" },
+      { "depth": 1, "content": "Bibliotekarz wybiera opcję definiowania egzemplarzy" },
+      { "depth": 1, "content": "System prezentuje zdefiniowane egzemplarze" },
+      { "depth": 1, "content": "FOR EACH egzemplarz:" },
+      { "depth": 2, "content": "Bibliotekarz wybiera opcję dodania egzemplarza" },
+      { "depth": 2, "content": "System prosi o podanie danych egzemplarza" },
+      { "depth": 2, "content": "Bibliotekarz podaje dane egzemplarza i zatwierdza."  },
+      { "depth": 2, "content": "System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy." },
+      { "depth": 0, "content": "Bibliotekarz zatwierdza dodanie książki." },
+      { "depth": 0, "content": "System informuje o poprawnym dodaniu książki." }
+    ]
+  }
