@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.sqc.logic.SQC;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
+import pl.put.poznan.sqc.logic.ScenarioFormatter;
 import pl.put.poznan.sqc.logic.ActorsExistTest;
 import pl.put.poznan.sqc.logic.NumberOfSteps;
 
@@ -77,6 +78,20 @@ public class SQCController {
 
         // return the result
         return actorsExistTest.getInfo();
+    }
+
+    @RequestMapping(value = "/format",method = RequestMethod.POST, produces = "application/json")
+    public String formatScenario(
+            @RequestBody ScenarioBody scenario) {
+
+        // log
+        logger.debug("POST /api/format");
+
+        // get information about steps
+        ScenarioFormatter scenarioFormatter = new pl.put.poznan.sqc.logic.ScenarioFormatter(scenario);
+
+        // return the result
+        return scenarioFormatter.getInfo();
     }
 
 }
