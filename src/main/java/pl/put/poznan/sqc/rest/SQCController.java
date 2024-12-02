@@ -66,7 +66,7 @@ public class SQCController {
     }
 
     @RequestMapping(value = "/testactors",method = RequestMethod.POST, produces = "application/json" )
-    public String[] testIfActorExists(
+    public String testIfActorExists(
             @RequestBody ScenarioBody scenario) {
 
         // log

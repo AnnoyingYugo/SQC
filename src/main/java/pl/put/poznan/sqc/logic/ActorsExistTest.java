@@ -1,7 +1,7 @@
 package pl.put.poznan.sqc.logic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
@@ -14,33 +14,42 @@ public class ActorsExistTest {
         this.actors = actors;
     }
 
-    public  String[] checkSteps(){
-        ArrayList<String> stepsNoActor = new ArrayList<String>();
-        for(int i = 0; i < scenarios.length; i++){
-            //check first if usees a constant word - TODO after adding key words
-            String firstWord = scenarios[i].content.split("\\s+")[0];
-            boolean matches = Arrays.stream(actors).anyMatch(firstWord::equals);
-            if(!matches){
-                stepsNoActor.add(scenarios[i].content);
+    public boolean stepStartsWithActor(ScenarioDescription scenario) {
+        if (actors == null) {
+            return false;
+        }
+        if (scenario.content.length() == 0) {
+            return false;
+        }
+        for (String actor : actors) {
+            String[] content = scenario.content.split("\\s+");
+            String firstWord = content[0];
+
+            if (firstWord.contains("IF") || firstWord.contains("ELSE")) {
+                firstWord = content[1];
+            } else if (firstWord.contains("FOR")) {
+                return true;
+            }
+
+            if (firstWord.contains(actor)) {
+                return true;
             }
         }
-        String[] result = new String[stepsNoActor.size()];
-        result = stepsNoActor.toArray(result);
-        return result;
+        return false;
     }
 
-    /*
-    public String convertToSingleString(String[] stringArray){
-        StringBuilder resultBuilder = new StringBuilder();
-        for(int i = 0; i < stringArray.length; i++){
-            resultBuilder.append(stringArray[i]);
-            resultBuilder.append("\n");
+    public List<String> stepsWithoutActors(){
+        List<String> stepDescriptions = new ArrayList<String>();
+        for(int i = 0; i < scenarios.length; i++){
+            if (!stepStartsWithActor(scenarios[i])){
+                stepDescriptions.add(scenarios[i].content);
+            }
         }
-        return resultBuilder.toString();
-    }*/
+        return stepDescriptions;
+    }
 
-    public String[] getInfo() {
-        String[] result = checkSteps();
-        return result;
+    public String getInfo() {
+        List<String> result = stepsWithoutActors();
+        return "These steps do not start with any actor: \n" + String.join(",\n", result);
     }
 }
