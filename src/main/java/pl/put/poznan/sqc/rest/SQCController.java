@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.sqc.logic.SQC;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
+import pl.put.poznan.sqc.logic.ActorsExistTest;
 import pl.put.poznan.sqc.logic.NumberOfSteps;
 
 import java.util.Arrays;
@@ -62,6 +63,20 @@ public class SQCController {
 
         // return the result
         return numberOfSteps.getInfo();
+    }
+
+    @RequestMapping(value = "/testactors",method = RequestMethod.POST, produces = "application/json" )
+    public String[] testIfActorExists(
+            @RequestBody ScenarioBody scenario) {
+
+        // log
+        logger.debug("POST /api/testactors");
+
+        // get information about steps
+        ActorsExistTest actorsExistTest = new ActorsExistTest(scenario.scenarios, scenario.actors);
+
+        // return the result
+        return actorsExistTest.getInfo();
     }
 
 }
