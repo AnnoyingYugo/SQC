@@ -8,6 +8,7 @@ import pl.put.poznan.sqc.logic.SQC;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.ScenarioFormatter;
 import pl.put.poznan.sqc.logic.ActorsExistTest;
+import pl.put.poznan.sqc.logic.KeyWordCounter;
 import pl.put.poznan.sqc.logic.NumberOfSteps;
 
 import java.util.Arrays;
@@ -92,6 +93,20 @@ public class SQCController {
 
         // return the result
         return scenarioFormatter.getInfo();
+    }
+
+    @RequestMapping(value = "/countkeyword",method = RequestMethod.POST, produces = "application/json" )
+    public int countKeywordSteps(
+            @RequestBody ScenarioBody scenario) {
+
+        // log
+        logger.debug("POST /api/countkeyword");
+
+        // get information about steps
+        KeyWordCounter keyWordCounter = new KeyWordCounter(scenario.scenarios);
+
+        // return the result
+        return keyWordCounter.getInfo();
     }
 
 }
