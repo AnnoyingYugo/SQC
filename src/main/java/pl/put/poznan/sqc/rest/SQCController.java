@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.put.poznan.sqc.logic.SQC;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
-import pl.put.poznan.sqc.logic.ScenarioFormatter;
 import pl.put.poznan.sqc.logic.ActorsExistTest;
 import pl.put.poznan.sqc.logic.KeyWordCounter;
 import pl.put.poznan.sqc.logic.NumberOfSteps;
@@ -15,12 +14,26 @@ import pl.put.poznan.sqc.logic.Visitor;
 
 import java.util.Arrays;
 
+/**
+ * This is the controller class for the REST service.
+ * 
+ * @author Filip Batóg, Krzysztof Garsztka, Aleksandra Ostrowska, Paviel Mamchur
+ * @version 5.0
+ */
 @RestController
 @RequestMapping("/api")
 public class SQCController {
 
     private static final Logger logger = LoggerFactory.getLogger(SQCController.class);
 
+    /**
+     * This method is used to get the SQC object.
+     * @param title
+     * @param actors
+     * @param system
+     * @param scenarios
+     * @return SQC
+     */
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public String get(@RequestParam(value = "title", defaultValue = "Default Title") String title,
             @RequestParam(value = "actors", defaultValue = "[]") String[] actors,
@@ -41,6 +54,11 @@ public class SQCController {
         return sqc.toPrint();
     }
 
+    /**
+     * This method is used to post the SQC object.
+     * @param scenario
+     * @return SQC
+     */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(
             @RequestBody ScenarioBody scenario) {
@@ -55,6 +73,11 @@ public class SQCController {
         return sqc.toPrint();
     }
 
+    /**
+     * This method is used to count the number of steps in the scenario.
+     * @param scenario
+     * @return String
+     */
     @RequestMapping(value = "/countsteps",method = RequestMethod.POST, produces = "application/json" )
     public String countScenarioSteps(
             @RequestBody ScenarioBody scenario) {
@@ -70,6 +93,11 @@ public class SQCController {
         return (String)numberOfSteps.getInfo();
     }
 
+    /**
+     * This method is used to test if the actors exist in the scenario.
+     * @param scenario
+     * @return String
+     */
     @RequestMapping(value = "/testactors",method = RequestMethod.POST, produces = "application/json" )
     public String testIfActorExists(
             @RequestBody ScenarioBody scenario) {
@@ -85,6 +113,11 @@ public class SQCController {
         return (String)actorsExistTest.getInfo();
     }
 
+    /**
+     * This method is used to format the scenario.
+     * @param scenario
+     * @return String
+     */
     @RequestMapping(value = "/format",method = RequestMethod.POST, produces = "application/json")
     public String formatScenario(
             @RequestBody ScenarioBody scenario) {
@@ -100,6 +133,11 @@ public class SQCController {
         return (String)scenarioFormatter.getInfo();
     }
 
+    /**
+     * This method is used to count the number of steps in the scenario.
+     * @param scenario
+     * @return Integer
+     */
     @RequestMapping(value = "/countkeyword",method = RequestMethod.POST, produces = "application/json" )
     public Integer countKeywordSteps(
             @RequestBody ScenarioBody scenario) {

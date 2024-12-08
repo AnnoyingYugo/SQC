@@ -6,15 +6,30 @@ import java.util.Map;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
+/**
+ * This class is a visitor that formats the scenario.
+ * 
+ * @author Paviel Mamchur
+ * @since 4.0
+ */
 public class ScenarioFormatter implements Visitor{
     private ScenarioBody scenarioBody;
 
-
+    /**
+     * This method visits the ScenarioBody and sets the scenarioBody to the ScenarioBody.
+     * 
+     * @param scenarioBody the ScenarioBody to visit
+     */
     @Override
     public void visit(ScenarioBody scenarioBody) {
         this.scenarioBody = scenarioBody;
     }
 
+    /**
+     * This method formats the scenario.
+     * 
+     * @return the formatted scenario
+     */
     public String formatScenario() {
         String formattedScenario = "";
 
@@ -32,6 +47,14 @@ public class ScenarioFormatter implements Visitor{
         return formattedScenario;
     }
 
+    /**
+     * This method enumerates the scenario.
+     * 
+     * @param scenario the scenario to enumerate
+     * @param depthMap the map of depths
+     * @param previousDepth the previous depth
+     * @return the enumerated scenario
+     */
     public String enumerate(ScenarioDescription scenario, Map<Integer, Integer> depthMap, int previousDepth) {
         String enumeration = "";
 
@@ -69,6 +92,11 @@ public class ScenarioFormatter implements Visitor{
         return enumeration;
     }
 
+    /**
+     * This method returns the information about the formatted scenario.
+     * 
+     * @return the information about the formatted scenario
+     */
     public String getInfo() {
         return formatScenario();
     }

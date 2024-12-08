@@ -3,18 +3,31 @@ package pl.put.poznan.sqc.logic;
 /**
  * This is just an example to show that the logic should be outside the REST
  * service.
+ * 
+ * @author Filip Batóg, Krzysztof Garsztka, Aleksandra Ostrowska
  */
 public class SQC {
+    /**
+     * This is the class that represents the body of the scenario.
+     */
     public static class ScenarioBody {
         public String title;
         public String[] actors;
         public String[] system;
         public ScenarioDescription[] scenarios;
+
+        /**
+         * This method accepts a visitor.
+         * @param visitor
+         */
         public void accept(Visitor visitor) {
             visitor.visit(this);
         }
     }
 
+    /**
+     * This is the class that represents the description of the scenario.
+     */
     public static class ScenarioDescription {
         public String content;
         public Integer depth;
@@ -39,6 +52,11 @@ public class SQC {
         this.scenario.scenarios = scenarios;
     }
 
+    /**
+     * This method accepts a visitor.
+     * @param scenarios
+     * @return SQC
+     */
     public static ScenarioDescription[] readScenarioDescriptions(String scenarios) {
         if (scenarios == null) {
             return new ScenarioDescription[0];
@@ -55,6 +73,10 @@ public class SQC {
         return scenarioDescriptions;
     }    
 
+    /**
+     * Prints the scenario.
+     * @return String scenario
+     */
     public String toPrint() {
         String str = "Scenario: " + scenario.title + "\n" + "Actors: " + String.join(", ", scenario.actors) + "\n"
                 + "System: " + String.join(", ", scenario.system) + "\n" + "Scenarios:\n";
