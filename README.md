@@ -7,3 +7,7 @@ Dla analityków dokumentujących wymagania funkcjonalne za pomocą scenariuszy n
 ## 🛠 Build and run
 
 `mvn spring-boot:run`
+
+## 🔀 UML
+
+![UML Diagram](uml.drawio.png)
