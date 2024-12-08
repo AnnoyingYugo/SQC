@@ -4,7 +4,7 @@ package pl.put.poznan.sqc.logic;
  * This is just an example to show that the logic should be outside the REST
  * service.
  * 
- * @author Filip Batóg, Krzysztof Garsztka, Aleksandra Ostrowska
+ * @author Filip Batóg, Krzysztof Garsztka, Aleksandra Ostrowska, Paviel Mamchur
  */
 public class SQC {
     /**

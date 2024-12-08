@@ -12,7 +12,7 @@
 
     <groupId>pl.put.poznan</groupId>
     <artifactId>io-project-architecture</artifactId>
-    <version>5.1</version>
+    <version>5.2</version>
 
     <properties>
         <java.version>11</java.version>
@@ -58,15 +58,20 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.7.v20170914</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.21.0</version>
                 <configuration>
-                <contextPath>/</contextPath>
-                <scanIntervalSeconds>10</scanIntervalSeconds>
-                <httpConnector>
-                <port>9091</port>
-                </httpConnector>
+                    <port>8081</port>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <show>private</show>
                 </configuration>
             </plugin>
             <plugin>
@@ -79,6 +84,23 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <show>private</show>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <repositories>
         <repository>
