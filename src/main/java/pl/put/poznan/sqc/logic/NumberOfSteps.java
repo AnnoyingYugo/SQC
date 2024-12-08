@@ -1,12 +1,15 @@
 package pl.put.poznan.sqc.logic;
+import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
-public class NumberOfSteps {
+public class NumberOfSteps implements Visitor{
 
     private ScenarioDescription[] scenarios;
 
-    public NumberOfSteps(ScenarioDescription[] scenarios) {
-        this.scenarios = scenarios;
+
+    @Override
+    public void visit(ScenarioBody scenarioBody) {
+        this.scenarios = scenarioBody.scenarios;
     }
 
     public int countSteps() {

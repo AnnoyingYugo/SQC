@@ -6,10 +6,12 @@ import java.util.Map;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
-public class ScenarioFormatter {
+public class ScenarioFormatter implements Visitor{
     private ScenarioBody scenarioBody;
 
-    public ScenarioFormatter(ScenarioBody scenarioBody) {
+
+    @Override
+    public void visit(ScenarioBody scenarioBody) {
         this.scenarioBody = scenarioBody;
     }
 

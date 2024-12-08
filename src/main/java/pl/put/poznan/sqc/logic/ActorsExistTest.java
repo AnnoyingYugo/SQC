@@ -3,15 +3,18 @@ package pl.put.poznan.sqc.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
-public class ActorsExistTest {
+public class ActorsExistTest implements Visitor {
     private ScenarioDescription[] scenarios;
     private String[] actors;
 
-    public ActorsExistTest(ScenarioDescription[] scenarios, String[] actors) {
-        this.scenarios = scenarios;
-        this.actors = actors;
+
+    @Override
+    public void visit(ScenarioBody scenarioBody) {
+        this.scenarios = scenarioBody.scenarios;
+        this.actors = scenarioBody.actors;
     }
 
     public boolean stepStartsWithActor(ScenarioDescription scenario) {

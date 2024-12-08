@@ -10,6 +10,9 @@ public class SQC {
         public String[] actors;
         public String[] system;
         public ScenarioDescription[] scenarios;
+        public void accept(Visitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class ScenarioDescription {

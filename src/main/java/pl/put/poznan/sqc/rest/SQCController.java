@@ -11,6 +11,8 @@ import pl.put.poznan.sqc.logic.ActorsExistTest;
 import pl.put.poznan.sqc.logic.KeyWordCounter;
 import pl.put.poznan.sqc.logic.NumberOfSteps;
 
+import pl.put.poznan.sqc.logic.Visitor;
+
 import java.util.Arrays;
 
 @RestController
@@ -61,10 +63,11 @@ public class SQCController {
         logger.debug("POST /api/countsteps");
 
         // get information about steps
-        NumberOfSteps numberOfSteps = new NumberOfSteps(scenario.scenarios);
+        Visitor numberOfSteps = new NumberOfSteps();
+        scenario.accept(numberOfSteps);
 
         // return the result
-        return numberOfSteps.getInfo();
+        return (String)numberOfSteps.getInfo();
     }
 
     @RequestMapping(value = "/testactors",method = RequestMethod.POST, produces = "application/json" )
@@ -75,10 +78,11 @@ public class SQCController {
         logger.debug("POST /api/testactors");
 
         // get information about steps
-        ActorsExistTest actorsExistTest = new ActorsExistTest(scenario.scenarios, scenario.actors);
+        Visitor actorsExistTest = new ActorsExistTest();
+        scenario.accept(actorsExistTest);
 
         // return the result
-        return actorsExistTest.getInfo();
+        return (String)actorsExistTest.getInfo();
     }
 
     @RequestMapping(value = "/format",method = RequestMethod.POST, produces = "application/json")
@@ -89,24 +93,26 @@ public class SQCController {
         logger.debug("POST /api/format");
 
         // get information about steps
-        ScenarioFormatter scenarioFormatter = new pl.put.poznan.sqc.logic.ScenarioFormatter(scenario);
+        Visitor scenarioFormatter = new pl.put.poznan.sqc.logic.ScenarioFormatter();
+        scenario.accept(scenarioFormatter);
 
         // return the result
-        return scenarioFormatter.getInfo();
+        return (String)scenarioFormatter.getInfo();
     }
 
     @RequestMapping(value = "/countkeyword",method = RequestMethod.POST, produces = "application/json" )
-    public int countKeywordSteps(
+    public Integer countKeywordSteps(
             @RequestBody ScenarioBody scenario) {
 
         // log
         logger.debug("POST /api/countkeyword");
 
         // get information about steps
-        KeyWordCounter keyWordCounter = new KeyWordCounter(scenario.scenarios);
+        Visitor keyWordCounter = new KeyWordCounter();
+        scenario.accept(keyWordCounter);
 
         // return the result
-        return keyWordCounter.getInfo();
+        return (Integer) keyWordCounter.getInfo();
     }
 
 }

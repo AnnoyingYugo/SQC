@@ -1,14 +1,18 @@
 package pl.put.poznan.sqc.logic;
 
 
+import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
-public class KeyWordCounter {
+public class KeyWordCounter implements Visitor{
     private ScenarioDescription[] scenarios;
 
-    public KeyWordCounter(ScenarioDescription[] scenarios) {
-        this.scenarios = scenarios;
+
+    @Override
+    public void visit(ScenarioBody scenario){
+       this.scenarios= scenario.scenarios;
     }
+
 
     public boolean stepStartsWithKeyword(ScenarioDescription scenario) {
         if (scenario.content.length() == 0) {
@@ -42,8 +46,8 @@ public class KeyWordCounter {
         }
         return result;
     }
-    public int getInfo() {
-        int result = stepsWithKeyword();
+    public Integer getInfo() {
+        Integer result = stepsWithKeyword();
         return result;
     }
 }
