@@ -16,3 +16,8 @@ jobs:
           cache: maven
       - name: Validate, build and run tests
         run: mvn clean package
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-package
+          path: target/*.jar
