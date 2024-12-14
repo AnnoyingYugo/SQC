@@ -4,7 +4,7 @@ import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
 /**
  * This class is a visitor that counts the number of steps in the scenario.
- * 
+ *
  * @author Aleksandra Ostrowska
  * @since 2.0
  */
@@ -14,7 +14,7 @@ public class NumberOfSteps implements Visitor{
 
     /**
      * This method visits the ScenarioBody and sets the scenarios array to the array of scenarios in the ScenarioBody.
-     * 
+     *
      * @param scenarioBody the ScenarioBody to visit
      */
     @Override
@@ -24,19 +24,26 @@ public class NumberOfSteps implements Visitor{
 
     /**
      * This method counts the number of steps in the scenario.
-     * 
+     *
      * @return the number of steps in the scenario
      */
     public int countSteps() {
         if (scenarios == null) {
             return 0;
         }
-        return scenarios.length;
+
+        int stepCount = 0;
+        for (ScenarioDescription scenario : scenarios) {
+            if(scenario.content != null && !scenario.content.trim().isEmpty()) {
+                stepCount++;
+            }
+        }
+        return stepCount;
     }
 
     /**
      * This method returns the information about the number of steps in the scenario.
-     * 
+     *
      * @return the information about the number of steps in the scenario
      */
     public String getInfo() {

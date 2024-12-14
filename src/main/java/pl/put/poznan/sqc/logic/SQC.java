@@ -1,5 +1,8 @@
 package pl.put.poznan.sqc.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is just an example to show that the logic should be outside the REST
  * service.
@@ -62,16 +65,25 @@ public class SQC {
             return new ScenarioDescription[0];
         }
         String[] scenarioSteps = scenarios.split(",");
+        List<ScenarioDescription> correctScenarios = new ArrayList<>();
 
         ScenarioDescription[] scenarioDescriptions = new ScenarioDescription[scenarioSteps.length];
-        for (int i = 0; i < scenarioDescriptions.length; i++) {
-            String[] splitScenario = scenarioSteps[i].split(":");
-            Integer depth = Integer.valueOf(splitScenario[0]);
-            String content = splitScenario[1];
-            scenarioDescriptions[i] = new ScenarioDescription(depth, content);
+        for (String step : scenarioSteps) {
+            String[] splitScenario = step.split(":");
+            if(splitScenario.length == 2) {
+                try {
+                    Integer depth = Integer.valueOf(splitScenario[0]);
+                    String content = splitScenario[1];
+                    if (content != null && !content.trim().isEmpty()) {
+                        correctScenarios.add(new ScenarioDescription(depth, content));
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return scenarioDescriptions;
-    }    
+        return correctScenarios.toArray(new ScenarioDescription[0]);
+    }
 
     /**
      * Prints the scenario.
