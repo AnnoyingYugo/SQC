@@ -4,13 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import pl.put.poznan.sqc.logic.SQC;
+import pl.put.poznan.sqc.logic.*;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
-import pl.put.poznan.sqc.logic.ActorsExistTest;
-import pl.put.poznan.sqc.logic.KeyWordCounter;
-import pl.put.poznan.sqc.logic.NumberOfSteps;
-
-import pl.put.poznan.sqc.logic.Visitor;
 
 import java.util.Arrays;
 
@@ -121,7 +116,7 @@ public class SQCController {
 
         logger.info("[POST /api/testactors] with title: " + scenario.title);
 
-        // get information about steps
+        // get information about actors
         Visitor actorsExistTest = new ActorsExistTest();
         scenario.accept(actorsExistTest);
         logger.info("[POST /api/testactors] tested actors");
@@ -145,7 +140,7 @@ public class SQCController {
 
         logger.info("[POST /api/format] with title: " + scenario.title);
 
-        // get information about steps
+        // operate request
         Visitor scenarioFormatter = new pl.put.poznan.sqc.logic.ScenarioFormatter();
         scenario.accept(scenarioFormatter);
         logger.info("[POST /api/format] formatted scenario");
@@ -155,7 +150,7 @@ public class SQCController {
     }
 
     /**
-     * This method is used to count the number of steps in the scenario.
+     * This method is used to count the number of keywords in the scenario.
      * 
      * @param scenario
      * @return Integer
@@ -169,13 +164,66 @@ public class SQCController {
 
         logger.info("[POST /api/countkeyword] with title: " + scenario.title);
 
-        // get information about steps
+        // get information about keywords
         Visitor keyWordCounter = new KeyWordCounter();
         scenario.accept(keyWordCounter);
         logger.info("[POST /api/countkeyword] counted keyword steps");
 
         // return the result
         return (Integer) keyWordCounter.getInfo();
+    }
+
+    /**
+     * This method is used to swap actor with another one in the scenario.
+     *
+     * @param scenario
+     * @param oldName the name to be replaced.
+     * @param newName the name to replace with.
+     * @return String
+     */
+    @RequestMapping(value = "/swapactor", method = RequestMethod.POST, produces = "application/json")
+    public String swapActor(
+            @RequestBody ScenarioBody scenario, @RequestParam String oldName, @RequestParam String newName) {
+
+        // log
+        logger.debug("POST /api/swapactor");
+
+        logger.info("[POST /api/swapactor] with title: " + scenario.title);
+
+        // operate request
+        Visitor actorSwapper = new ActorSwapper();
+        scenario.accept(actorSwapper);
+        ((ActorSwapper) actorSwapper).setActorNames(oldName, newName);
+        logger.info("[POST /api/swapactor] swapped actors " + oldName + " with " + newName);
+
+        // return the result
+        return (String) actorSwapper.getInfo();
+    }
+
+    /**
+     * This method is used to count the number of times actor appears in the scenario.
+     *
+     * @param scenario
+     * @param actorName the name of actor to be counted.
+     * @return Integer
+     */
+    @RequestMapping(value = "/countactor", method = RequestMethod.POST, produces = "application/json")
+    public Integer countActor(
+            @RequestBody ScenarioBody scenario, @RequestParam String actorName) {
+
+        // log
+        logger.debug("POST /api/countactor");
+
+        logger.info("[POST /api/countactor] with title: " + scenario.title);
+
+        // get information about actor
+        Visitor actorCounter = new ActorCounter();
+        scenario.accept(actorCounter);
+        ((ActorCounter) actorCounter).setActorNames(actorName);
+        logger.info("[POST /api/countactor] counted actor " + actorName);
+
+        // return the result
+        return (Integer) actorCounter.getInfo();
     }
 
 }
