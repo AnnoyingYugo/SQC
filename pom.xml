@@ -12,7 +12,7 @@
 
     <groupId>pl.put.poznan</groupId>
     <artifactId>io-project-architecture</artifactId>
-    <version>6.0</version>
+    <version>7.0</version>
 
     <properties>
         <java.version>11</java.version>
