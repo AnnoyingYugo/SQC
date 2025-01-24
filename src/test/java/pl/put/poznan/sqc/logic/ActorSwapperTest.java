@@ -82,7 +82,7 @@ class ActorSwapperTest {
         String info = actorSwapper.getInfo();
         assertNull(info);
     }
-    
+
 
 
 }
