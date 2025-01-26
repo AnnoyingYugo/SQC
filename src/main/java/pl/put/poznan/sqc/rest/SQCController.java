@@ -230,8 +230,14 @@ public class SQCController {
         return (Integer) actorCounter.getInfo();
     }
 
+    /**
+     * This method is used to validate if scenario is in correct format.
+     * 
+     * @param scenario
+     * @return String
+     */
     @RequestMapping(value = "/validate", method=RequestMethod.POST, produces = "application/json")
-    public String requestMethodName(@RequestBody ScenarioBody scenario) {
+    public String validateScenario(@RequestBody ScenarioBody scenario) {
         // log
         logger.debug("POST /api/validate");
 
