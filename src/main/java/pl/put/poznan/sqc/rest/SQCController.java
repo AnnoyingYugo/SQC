@@ -8,6 +8,10 @@ import pl.put.poznan.sqc.logic.*;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 
 import java.util.Arrays;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  * This is the controller class for the REST service.
@@ -226,4 +230,19 @@ public class SQCController {
         return (Integer) actorCounter.getInfo();
     }
 
+    @RequestMapping(value = "/validate", method=RequestMethod.POST, produces = "application/json")
+    public String requestMethodName(@RequestBody ScenarioBody scenario) {
+        // log
+        logger.debug("POST /api/validate");
+
+        logger.info("[POST /api/validate] with title: " + scenario.title);
+
+        // get information about actors
+        Visitor scenarioValidator = new ScenarioValidator();
+        scenario.accept(scenarioValidator);
+        logger.info("[POST /api/validate] validated scenario");
+
+        // return the result
+        return (String) scenarioValidator.getInfo();
+    }
 }
