@@ -12,7 +12,7 @@
 
     <groupId>pl.put.poznan</groupId>
     <artifactId>io-project-architecture</artifactId>
-    <version>8.0</version>
+    <version>8.1</version>
 
     <properties>
         <java.version>11</java.version>
@@ -77,6 +77,22 @@
                 <version>3.21.0</version>
                 <configuration>
                     <port>8081</port>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <show>private</show>
                 </configuration>
             </plugin>
 
