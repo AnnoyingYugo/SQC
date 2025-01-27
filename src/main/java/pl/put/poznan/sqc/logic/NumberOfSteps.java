@@ -1,4 +1,5 @@
 package pl.put.poznan.sqc.logic;
+
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
@@ -8,18 +9,18 @@ import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
  * @author Aleksandra Ostrowska
  * @since 2.0
  */
-public class NumberOfSteps implements Visitor{
+public class NumberOfSteps implements Visitor {
     private ScenarioDescription[] scenarios;
 
-
     /**
-     * This method visits the ScenarioBody and sets the scenarios array to the array of scenarios in the ScenarioBody.
+     * This method visits the ScenarioBody and sets the scenarios array to the array
+     * of scenarios in the ScenarioBody.
      *
      * @param scenarioBody the ScenarioBody to visit
      */
     @Override
     public void visit(ScenarioBody scenarioBody) {
-        this.scenarios = scenarioBody.scenarios;
+        this.scenarios = scenarioBody.getScenarios();
     }
 
     /**
@@ -34,7 +35,7 @@ public class NumberOfSteps implements Visitor{
 
         int stepCount = 0;
         for (ScenarioDescription scenario : scenarios) {
-            if(scenario.content != null && !scenario.content.trim().isEmpty()) {
+            if (scenario.content != null && !scenario.content.trim().isEmpty()) {
                 stepCount++;
             }
         }
@@ -42,7 +43,8 @@ public class NumberOfSteps implements Visitor{
     }
 
     /**
-     * This method returns the information about the number of steps in the scenario.
+     * This method returns the information about the number of steps in the
+     * scenario.
      *
      * @return the information about the number of steps in the scenario
      */

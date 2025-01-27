@@ -12,11 +12,12 @@ import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
  * @author Paviel Mamchur
  * @since 4.0
  */
-public class ScenarioFormatter implements Visitor{
+public class ScenarioFormatter implements Visitor {
     private ScenarioBody scenarioBody;
 
     /**
-     * This method visits the ScenarioBody and sets the scenarioBody to the ScenarioBody.
+     * This method visits the ScenarioBody and sets the scenarioBody to the
+     * ScenarioBody.
      * 
      * @param scenarioBody the ScenarioBody to visit
      */
@@ -32,15 +33,16 @@ public class ScenarioFormatter implements Visitor{
      */
     public String formatScenario() {
         String formattedScenario = "";
+        var scenarios = scenarioBody.getScenarios();
 
-        formattedScenario += "Title: " + scenarioBody.title + "\n";
-        formattedScenario += "Actors: " + String.join(", ", scenarioBody.actors) + "\n";
-        formattedScenario += "System: " + String.join(", ", scenarioBody.system) + "\n";
+        formattedScenario += "Title: " + scenarioBody.getTitle() + "\n";
+        formattedScenario += "Actors: " + String.join(", ", scenarioBody.getActors()) + "\n";
+        formattedScenario += "System: " + String.join(", ", scenarioBody.getSystem()) + "\n";
 
         Map<Integer, Integer> depthMap = new HashMap<>();
         depthMap.put(0, 0);
         int previousDepth = 0;
-        for (ScenarioDescription scenario : scenarioBody.scenarios) {
+        for (ScenarioDescription scenario : scenarios) {
             formattedScenario += enumerate(scenario, depthMap, previousDepth);
         }
 
@@ -50,8 +52,8 @@ public class ScenarioFormatter implements Visitor{
     /**
      * This method enumerates the scenario.
      * 
-     * @param scenario the scenario to enumerate
-     * @param depthMap the map of depths
+     * @param scenario      the scenario to enumerate
+     * @param depthMap      the map of depths
      * @param previousDepth the previous depth
      * @return the enumerated scenario
      */

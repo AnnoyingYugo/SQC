@@ -3,7 +3,11 @@ package pl.put.poznan.sqc.logic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * This class tests ActorCounter's class functionality using JUnit library.
@@ -18,11 +22,11 @@ class ActorCounterTest {
     @BeforeEach
     void setUp() {
         actorCounter = new ActorCounter();
-        scenarioBody = new SQC.ScenarioBody();
+        scenarioBody = mock(ScenarioBody.class);
 
-        scenarioBody.actors = new String[]{"Bibliotekarz", "Uzytkownik"};
-        scenarioBody.system = new String[]{"System"};
-        scenarioBody.scenarios = new SQC.ScenarioDescription[]{
+        when(scenarioBody.getActors()).thenReturn(new String[]{"Bibliotekarz", "Uzytkownik"});
+        when(scenarioBody.getSystem()).thenReturn(new String[]{"System"});
+        when(scenarioBody.getScenarios()).thenReturn(new SQC.ScenarioDescription[]{
                 new SQC.ScenarioDescription(0, "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej"),
                 new SQC.ScenarioDescription(0, "Wyświetla się formularz."),
                 new SQC.ScenarioDescription(0, "Bibliotekarz podaje dane książki."),
@@ -37,7 +41,7 @@ class ActorCounterTest {
                 new SQC.ScenarioDescription(0, "Bibliotekarz zatwierdza dodanie książki."),
                 new SQC.ScenarioDescription(0, "System informuje o poprawnym dodaniu książki."),
                 new SQC.ScenarioDescription(0, "")
-        };
+        });
     }
 
     @Test

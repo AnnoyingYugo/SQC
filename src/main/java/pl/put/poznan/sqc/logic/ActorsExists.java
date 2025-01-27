@@ -8,12 +8,13 @@ import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
 // generate javadoc
 /**
- * This class is a visitor that checks if each step in the scenario starts with an actor.
+ * This class is a visitor that checks if each step in the scenario starts with
+ * an actor.
  * 
  * @author Krzysztof Garsztka, Paviel Mamchur
  * @since 3.0
  */
-public class ActorsExistTest implements Visitor {
+public class ActorsExists implements Visitor {
     private ScenarioDescription[] scenarios;
     private String[] actors;
     private String[] system;
@@ -25,9 +26,9 @@ public class ActorsExistTest implements Visitor {
      */
     @Override
     public void visit(ScenarioBody scenarioBody) {
-        this.scenarios = scenarioBody.scenarios;
-        this.actors = scenarioBody.actors;
-        this.system = scenarioBody.system;
+        this.scenarios = scenarioBody.getScenarios();
+        this.actors = scenarioBody.getActors();
+        this.system = scenarioBody.getSystem();
     }
 
     /**
@@ -70,10 +71,10 @@ public class ActorsExistTest implements Visitor {
      * 
      * @return a list of steps that do not start with any actor
      */
-    public List<String> stepsWithoutActors(){
+    public List<String> stepsWithoutActors() {
         List<String> stepDescriptions = new ArrayList<String>();
-        for(int i = 0; i < scenarios.length; i++){
-            if (!stepStartsWithActor(scenarios[i])){
+        for (int i = 0; i < scenarios.length; i++) {
+            if (!stepStartsWithActor(scenarios[i])) {
                 stepDescriptions.add(scenarios[i].content);
             }
         }
@@ -81,9 +82,11 @@ public class ActorsExistTest implements Visitor {
     }
 
     /**
-     * This method returns a string with information about steps that do not start with any actor.
+     * This method returns a string with information about steps that do not start
+     * with any actor.
      * 
-     * @return a string with information about steps that do not start with any actor
+     * @return a string with information about steps that do not start with any
+     *         actor
      */
     public String getInfo() {
         List<String> result = stepsWithoutActors();

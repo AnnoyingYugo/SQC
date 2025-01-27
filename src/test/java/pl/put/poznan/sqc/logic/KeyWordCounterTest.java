@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * This class tests KeyWordCounter's class functionality using JUnit library.
@@ -35,9 +34,9 @@ class KeyWordCounterTest {
         stepNull = new SQC.ScenarioDescription(5, "");
 
         scenarioBody = new SQC.ScenarioBody();
-        scenarioBody.scenarios = new SQC.ScenarioDescription[]{
+        scenarioBody.setScenarios(new SQC.ScenarioDescription[]{
                 stepIf, stepElse, stepForEach, stepFor, stepNoKeyword, stepNull
-        };
+        });
     }
 
     @Test

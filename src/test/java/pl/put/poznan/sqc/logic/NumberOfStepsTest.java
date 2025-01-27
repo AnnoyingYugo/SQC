@@ -34,9 +34,9 @@ class NumberOfStepsTest {
         stepNull = new SQC.ScenarioDescription(5, "  ");
 
         scenarioBody = new SQC.ScenarioBody();
-        scenarioBody.scenarios = new SQC.ScenarioDescription[]{
+        scenarioBody.setScenarios(new SQC.ScenarioDescription[]{
                 stepIf, stepElse, stepForEach, stepFor, stepNoKeyword, stepNull
-        };
+        });
     }
 
     @Test

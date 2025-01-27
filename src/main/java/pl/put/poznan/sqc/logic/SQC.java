@@ -14,15 +14,42 @@ public class SQC {
      * This is the class that represents the body of the scenario.
      */
     public static class ScenarioBody {
-        public String title;
-        public String[] actors;
-        public String[] system;
-        public ScenarioDescription[] scenarios;
+        private String title;
+        private String[] actors;
+        private String[] system;
+        private ScenarioDescription[] scenarios;
 
         /**
          * This method accepts a visitor.
          * @param visitor
          */
+
+        public String getTitle() {
+            return this.title;
+        }
+        public String[] getActors() {
+            return this.actors;
+        }
+        public String[] getSystem() {
+            return this.system;
+        }
+        public ScenarioDescription[] getScenarios() {
+            return this.scenarios;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+        public void setActors(String[] actors) {
+            this.actors = actors;
+        }
+        public void setSystem(String[] system) {
+            this.system = system;
+        }
+        public void setScenarios(ScenarioDescription[] scenarios) {
+            this.scenarios = scenarios;
+        }
+
         public void accept(Visitor visitor) {
             visitor.visit(this);
         }
@@ -49,10 +76,10 @@ public class SQC {
 
     public SQC(String title, String[] actors, String[] system, ScenarioDescription[] scenarios) {
         this.scenario = new ScenarioBody();
-        this.scenario.title = title;
-        this.scenario.actors = actors;
-        this.scenario.system = system;
-        this.scenario.scenarios = scenarios;
+        this.scenario.setTitle(title);
+        this.scenario.setActors(actors);
+        this.scenario.setScenarios(scenarios);
+        this.scenario.setSystem(system);
     }
 
     /**

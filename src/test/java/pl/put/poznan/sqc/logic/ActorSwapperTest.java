@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,13 +25,13 @@ class ActorSwapperTest {
     @BeforeEach
     void setUp() {
         actorSwapper = new ActorSwapper();
-        scenarioBody = new SQC.ScenarioBody();
+        scenarioBody =mock(ScenarioBody.class);
 
         actorCounter = mock(ActorCounter.class);
 
-        scenarioBody.actors = new String[]{"Bibliotekarz", "Uzytkownik"};
-        scenarioBody.system = new String[]{"System"};
-        scenarioBody.scenarios = new SQC.ScenarioDescription[]{
+        when(scenarioBody.getActors()).thenReturn(new String[]{"Bibliotekarz", "Uzytkownik"});
+        when(scenarioBody.getSystem()).thenReturn(new String[]{"System"});
+        when(scenarioBody.getScenarios()).thenReturn(new SQC.ScenarioDescription[]{
                 new SQC.ScenarioDescription(0, "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej"),
                 new SQC.ScenarioDescription(0, "Wyświetla się formularz."),
                 new SQC.ScenarioDescription(0, "Bibliotekarz podaje dane książki."),
@@ -44,7 +46,7 @@ class ActorSwapperTest {
                 new SQC.ScenarioDescription(0, "Bibliotekarz zatwierdza dodanie książki."),
                 new SQC.ScenarioDescription(0, "System informuje o poprawnym dodaniu książki."),
                 new SQC.ScenarioDescription(0, "")
-        };
+        });
     }
 
     @Test

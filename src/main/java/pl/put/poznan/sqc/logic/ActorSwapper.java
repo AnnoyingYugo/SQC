@@ -3,7 +3,8 @@ package pl.put.poznan.sqc.logic;
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 
 /**
- * This class is a visitor that swaps an old actor name with a new one throughout the scenario.
+ * This class is a visitor that swaps an old actor name with a new one
+ * throughout the scenario.
  *
  * @author Aleksandra Ostrowska
  * @since 7.0
@@ -39,17 +40,20 @@ public class ActorSwapper implements Visitor {
      *
      * @param oldName the name to be replaced.
      * @param newName the name to replace with.
-     * @return a String representation of the updated scenario, or null if conditions are not met.
+     * @return a String representation of the updated scenario, or null if
+     *         conditions are not met.
      */
     public String swapActor(String oldName, String newName) {
         if (oldName.isEmpty() || newName.isEmpty() || oldName.equals(newName)) {
             return null;
         }
         boolean actorFound = false;
+        var scenarios = scenarioBody.getScenarios();
+        var actors = scenarioBody.getActors();
 
-        for (int i = 0; i < scenarioBody.actors.length; i++) {
-            if (scenarioBody.actors[i].equals(oldName)) {
-                scenarioBody.actors[i] = newName;
+        for (int i = 0; i < actors.length; i++) {
+            if (actors[i].equals(oldName)) {
+                actors[i] = newName;
                 actorFound = true;
             }
         }
@@ -58,7 +62,7 @@ public class ActorSwapper implements Visitor {
             return null;
         }
 
-        for (SQC.ScenarioDescription scenario : scenarioBody.scenarios) {
+        for (SQC.ScenarioDescription scenario : scenarios) {
             if (scenario.content.contains(oldName)) {
                 scenario.content = scenario.content.replace(oldName, newName);
             }
@@ -70,9 +74,11 @@ public class ActorSwapper implements Visitor {
     }
 
     /**
-     * This method uses swapActor to operate the swap and returns the resulting string.
+     * This method uses swapActor to operate the swap and returns the resulting
+     * string.
      *
-     * @return a String representation of the updated scenario, or null if conditions are not met.
+     * @return a String representation of the updated scenario, or null if
+     *         conditions are not met.
      */
     @Override
     public String getInfo() {

@@ -1,16 +1,16 @@
 package pl.put.poznan.sqc.logic;
 
-
 import pl.put.poznan.sqc.logic.SQC.ScenarioBody;
 import pl.put.poznan.sqc.logic.SQC.ScenarioDescription;
 
 /**
- * This class is a visitor that checks if each step in the scenario starts with a keyword.
+ * This class is a visitor that checks if each step in the scenario starts with
+ * a keyword.
  * 
  * @author Krzysztof Garsztka
  * @since 5.0
  */
-public class KeyWordCounter implements Visitor{
+public class KeyWordCounter implements Visitor {
     private ScenarioDescription[] scenarios;
 
     /**
@@ -19,8 +19,8 @@ public class KeyWordCounter implements Visitor{
      * @param scenario the ScenarioBody object that the visitor visits
      */
     @Override
-    public void visit(ScenarioBody scenario){
-       this.scenarios= scenario.scenarios;
+    public void visit(ScenarioBody scenario) {
+        this.scenarios = scenario.getScenarios();
     }
 
     /**
@@ -38,15 +38,13 @@ public class KeyWordCounter implements Visitor{
 
         if (firstWord.contains("IF") || firstWord.contains("ELSE")) {
             return true;
-        }
-        else if (firstWord.contains("FOR") ) {
-            try{
+        } else if (firstWord.contains("FOR")) {
+            try {
                 String secondWord = content[1];
-                    if(secondWord.contains("EACH")){
-                        return true;
-                    }
-            }
-            catch(Throwable e){
+                if (secondWord.contains("EACH")) {
+                    return true;
+                }
+            } catch (Throwable e) {
                 return false;
             }
         }
@@ -58,11 +56,11 @@ public class KeyWordCounter implements Visitor{
      * 
      * @return the number of steps that start with a keyword
      */
-    public int stepsWithKeyword(){
+    public int stepsWithKeyword() {
         int result = 0;
-        for(int i = 0; i < scenarios.length; i++){
-            if (stepStartsWithKeyword(scenarios[i])){
-               result++;
+        for (int i = 0; i < scenarios.length; i++) {
+            if (stepStartsWithKeyword(scenarios[i])) {
+                result++;
             }
         }
         return result;

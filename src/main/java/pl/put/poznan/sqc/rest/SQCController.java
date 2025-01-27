@@ -71,7 +71,7 @@ public class SQCController {
         // log
         logger.debug("POST /api");
 
-        logger.info("[POST /api] with title: " + scenario.title);
+        logger.info("[POST /api] with title: " + scenario.getTitle());
 
         // create the SQC object
         SQC sqc = new SQC(scenario);
@@ -94,7 +94,7 @@ public class SQCController {
         // log
         logger.debug("POST /api/countsteps");
 
-        logger.info("[POST /api/countsteps] with title: " + scenario.title);
+        logger.info("[POST /api/countsteps] with title: " + scenario.getTitle());
 
         // get information about steps
         Visitor numberOfSteps = new NumberOfSteps();
@@ -118,10 +118,10 @@ public class SQCController {
         // log
         logger.debug("POST /api/testactors");
 
-        logger.info("[POST /api/testactors] with title: " + scenario.title);
+        logger.info("[POST /api/testactors] with title: " + scenario.getTitle());
 
         // get information about actors
-        Visitor actorsExistTest = new ActorsExistTest();
+        Visitor actorsExistTest = new ActorsExists();
         scenario.accept(actorsExistTest);
         logger.info("[POST /api/testactors] tested actors");
 
@@ -142,7 +142,7 @@ public class SQCController {
         // log
         logger.debug("POST /api/format");
 
-        logger.info("[POST /api/format] with title: " + scenario.title);
+        logger.info("[POST /api/format] with title: " + scenario.getTitle());
 
         // operate request
         Visitor scenarioFormatter = new pl.put.poznan.sqc.logic.ScenarioFormatter();
@@ -166,7 +166,7 @@ public class SQCController {
         // log
         logger.debug("POST /api/countkeyword");
 
-        logger.info("[POST /api/countkeyword] with title: " + scenario.title);
+        logger.info("[POST /api/countkeyword] with title: " + scenario.getTitle());
 
         // get information about keywords
         Visitor keyWordCounter = new KeyWordCounter();
@@ -192,7 +192,7 @@ public class SQCController {
         // log
         logger.debug("POST /api/swapactor");
 
-        logger.info("[POST /api/swapactor] with title: " + scenario.title);
+        logger.info("[POST /api/swapactor] with title: " + scenario.getTitle());
 
         // operate request
         Visitor actorSwapper = new ActorSwapper();
@@ -218,7 +218,7 @@ public class SQCController {
         // log
         logger.debug("POST /api/countactor");
 
-        logger.info("[POST /api/countactor] with title: " + scenario.title);
+        logger.info("[POST /api/countactor] with title: " + scenario.getTitle());
 
         // get information about actor
         Visitor actorCounter = new ActorCounter();
@@ -241,7 +241,7 @@ public class SQCController {
         // log
         logger.debug("POST /api/validate");
 
-        logger.info("[POST /api/validate] with title: " + scenario.title);
+        logger.info("[POST /api/validate] with title: " + scenario.getTitle());
 
         // get information about actors
         Visitor scenarioValidator = new ScenarioValidator();

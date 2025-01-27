@@ -6,7 +6,7 @@ package pl.put.poznan.sqc.logic;
  * @author Aleksandra Ostrowska
  * @since 7.0
  */
-public class ActorCounter implements Visitor{
+public class ActorCounter implements Visitor {
     private SQC.ScenarioBody scenarioBody;
     private String actorName;
 
@@ -43,8 +43,11 @@ public class ActorCounter implements Visitor{
             return null;
         }
 
-        for (int i = 0; i < scenarioBody.actors.length; i++) {
-            if (scenarioBody.actors[i].equals(actorName)) {
+        var actors = scenarioBody.getActors();
+        var scenarios = scenarioBody.getScenarios();
+
+        for (int i = 0; i < actors.length; i++) {
+            if (actors[i].equals(actorName)) {
                 actorFound = true;
                 break;
             }
@@ -54,7 +57,7 @@ public class ActorCounter implements Visitor{
             return 0;
         }
 
-        for (SQC.ScenarioDescription scenario : scenarioBody.scenarios) {
+        for (SQC.ScenarioDescription scenario : scenarios) {
             if (scenario.content.contains(actorName)) {
                 count++;
             }

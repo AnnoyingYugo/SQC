@@ -2,26 +2,24 @@ package pl.put.poznan.sqc.logic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.json.JsonContentAssert;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
-class TestActorsExistTest {
-    private ActorsExistTest actorsExistTest;
+class ActorsExistTest {
+    private ActorsExists actorsExistTest;
     private SQC.ScenarioBody scenarioBody;
 
     @BeforeEach
     void setUp() {
-        actorsExistTest = new ActorsExistTest();
-        scenarioBody = new SQC.ScenarioBody();
+        actorsExistTest = new ActorsExists();
+        scenarioBody = mock(SQC.ScenarioBody.class);
 
-        scenarioBody.actors = new String[]{"Bibliotekarz", "Uzytkownik"};
-        scenarioBody.system = new String[]{"System"};
-        scenarioBody.scenarios = new SQC.ScenarioDescription[]{
+        when(scenarioBody.getActors()).thenReturn(new String[]{"Bibliotekarz", "Uzytkownik"});
+        when(scenarioBody.getSystem()).thenReturn(new String[]{"System"});
+        when(scenarioBody.getScenarios()).thenReturn(new SQC.ScenarioDescription[]{
                 new SQC.ScenarioDescription(0, "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej"),
                 new SQC.ScenarioDescription(0, "Wyświetla się formularz."),
                 new SQC.ScenarioDescription(0, "Bibliotekarz podaje dane książki."),
@@ -36,31 +34,31 @@ class TestActorsExistTest {
                 new SQC.ScenarioDescription(0, "Bibliotekarz zatwierdza dodanie książki."),
                 new SQC.ScenarioDescription(0, "System informuje o poprawnym dodaniu książki."),
                 new SQC.ScenarioDescription(0, "")
-        };
+        });
     }
 
     @Test
     void test_actor_stepStartsWithActor(){
         actorsExistTest.visit(scenarioBody);
-        assertTrue(actorsExistTest.stepStartsWithActor(scenarioBody.scenarios[0]));
+        assertTrue(actorsExistTest.stepStartsWithActor(scenarioBody.getScenarios()[0]));
     }
 
     @Test
     void test_system_stepStartsWithActor(){
         actorsExistTest.visit(scenarioBody);
-        assertTrue(actorsExistTest.stepStartsWithActor(scenarioBody.scenarios[5]));
+        assertTrue(actorsExistTest.stepStartsWithActor(scenarioBody.getScenarios()[5]));
     }
 
     @Test
     void test_none_stepStartsWithActor(){
         actorsExistTest.visit(scenarioBody);
-        assertFalse(actorsExistTest.stepStartsWithActor(scenarioBody.scenarios[1]));
+        assertFalse(actorsExistTest.stepStartsWithActor(scenarioBody.getScenarios()[1]));
     }
 
     @Test
     void test_null_stepStartsWithActor(){
         actorsExistTest.visit(scenarioBody);
-        assertFalse(actorsExistTest.stepStartsWithActor(scenarioBody.scenarios[13]));
+        assertFalse(actorsExistTest.stepStartsWithActor(scenarioBody.getScenarios()[13]));
     }
 
     @Test
