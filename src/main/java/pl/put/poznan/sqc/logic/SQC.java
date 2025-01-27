@@ -13,43 +13,92 @@ public class SQC {
     /**
      * This is the class that represents the body of the scenario.
      */
+    /**
+     * Represents the body of a scenario, including its title, actors, system, and sub-scenarios.
+     */
     public static class ScenarioBody {
+
         private String title;
         private String[] actors;
         private String[] system;
         private ScenarioDescription[] scenarios;
-
         /**
-         * This method accepts a visitor.
-         * @param visitor
+         * Gets the title of the scenario.
+         * 
+         * @return the title of the scenario.
          */
-
         public String getTitle() {
             return this.title;
         }
+
+        /**
+         * Gets the actors involved in the scenario.
+         * 
+         * @return an array of actors.
+         */
         public String[] getActors() {
             return this.actors;
         }
+
+        /**
+         * Gets the system components involved in the scenario.
+         * 
+         * @return an array of system components.
+         */
         public String[] getSystem() {
             return this.system;
         }
+
+        /**
+         * Gets the sub-scenarios of the scenario.
+         * 
+         * @return an array of sub-scenarios.
+         */
         public ScenarioDescription[] getScenarios() {
             return this.scenarios;
         }
 
+        /**
+         * Sets the title of the scenario.
+         * 
+         * @param title the title to set.
+         */
         public void setTitle(String title) {
             this.title = title;
         }
+
+        /**
+         * Sets the actors involved in the scenario.
+         * 
+         * @param actors the actors to set.
+         */
         public void setActors(String[] actors) {
             this.actors = actors;
         }
+
+        /**
+         * Sets the system components involved in the scenario.
+         * 
+         * @param system the system components to set.
+         */
         public void setSystem(String[] system) {
             this.system = system;
         }
+
+        /**
+         * Sets the sub-scenarios of the scenario.
+         * 
+         * @param scenarios the sub-scenarios to set.
+         */
         public void setScenarios(ScenarioDescription[] scenarios) {
             this.scenarios = scenarios;
         }
 
+        /**
+         * Accepts a visitor to perform operations on the scenario body.
+         * 
+         * @param visitor the visitor to accept.
+         */
         public void accept(Visitor visitor) {
             visitor.visit(this);
         }
