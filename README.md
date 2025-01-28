@@ -10,4 +10,4 @@ Dla analityków dokumentujących wymagania funkcjonalne za pomocą scenariuszy n
 
 ## 🔀 UML
 
-![UML Diagram](uml.drawio.png)
+![UML Diagram](umll.drawio.png)
